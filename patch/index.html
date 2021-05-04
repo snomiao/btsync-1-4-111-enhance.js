@@ -1,0 +1,2144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>BitTorrent Sync Beta</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="shortcut icon" href="favicon.ico?v=2" />
+
+	<script type="text/javascript" src="locales/en.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-1.11.1.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-ui.js"></script>
+	<script type="text/javascript" src="js/lib/jquery.scrollTo.js"></script>
+	<script type="text/javascript" src="js/jqueryFileTree.js"></script>
+	<script type="text/javascript" src="js/lib/jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="js/lib/jquery.jsperanto.js"></script>
+	<script type="text/javascript" src="js/lib/moment.js"></script>
+	<script type="text/javascript" src="js/lib/bootstrap-select.js"></script>
+	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/lib/bootstrap-contextmenu.js"></script>
+	<script type="text/javascript" src="js/lib/handlebars-v1.3.0.js"></script>
+	<script type="text/javascript" src="js/handlebars.helpers.js"></script>
+	<script type="text/javascript" src="js/lib/underscore.js"></script>
+	<script type="text/javascript" src="js/lib/backbone.js"></script>
+	<script type="text/javascript" src="js/resizableColumns.js"></script>
+	<script type="text/javascript" src="js/lib/amplify.store.js"></script>
+	<script type="text/javascript" src="js/lib/modernizr.js"></script>
+	<script type="text/javascript" src="js/lib/cheet.min.js"></script>
+	<script type="text/javascript" src="js/console.js"></script>
+	<script type="text/javascript" src="js/base.js"></script>
+	<script type="text/javascript" src="js/syncConstants.js"></script>
+	<script type="text/javascript" src="js/store.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+	<script type="text/javascript" src="js/license.js"></script>
+	<script type="text/javascript" src="js/copyDialog.js"></script>
+	<script type="text/javascript" src="js/popout.js"></script>
+	<script type="text/javascript" src="js/historyEntryView.js"></script>
+	<script type="text/javascript" src="js/historyEntryModel.js"></script>
+	<script type="text/javascript" src="js/historyCollection.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/devices.js"></script>
+	<script type="text/javascript" src="js/folderPrefs.js"></script>
+	<script type="text/javascript" src="js/folderSettings.js"></script>
+	<script type="text/javascript" src="js/peerListDialog.js"></script>
+	<script type="text/javascript" src="js/integrationDialog.js"></script>
+	<script type="text/javascript" src="js/approvalDialog.js"></script>
+	<script type="text/javascript" src="js/settings.js"></script>
+	<script type="text/javascript" src="js/folders.js"></script>
+	<script type="text/javascript" src="js/addFolder.js"></script>
+	<script type="text/javascript" src="js/aodsDialog.js"></script>
+	<script type="text/javascript" src="js/connect.js"></script>
+	<script type="text/javascript" src="js/multiApproval.js"></script>
+	<script type="text/javascript" src="js/approval.js"></script>
+	<script type="text/javascript" src="js/emptyDialog.js"></script>
+	<script type="text/javascript" src="js/sharingContent.js"></script>
+	<script type="text/javascript" src="js/historyDialog.js"></script>
+	<script type="text/javascript" src="js/confirm.js"></script>
+	<script type="text/javascript" src="js/router.js"></script>
+	<script type="text/javascript" src="js/enterKey.js"></script>
+	<script type="text/javascript" src="js/fileQueue.js"></script>
+	<script type="text/javascript" src="js/notify.js"></script>
+	<script type="text/javascript" src="js/userIdentity.js"></script>
+	<script type="text/javascript" src="js/validator.js"></script>
+	<script type="text/javascript" src="js/debugmode.js"></script>
+	<script type="text/javascript" src="js/progressbar.js"></script>
+	<script type="text/javascript" src="js/pendingModal.js"></script>
+	<script type="text/javascript" src="js/notifications.js"></script>
+	<script type="text/javascript" src="js/webui.js"></script>
+	<script type="text/javascript" src="btsync-enhance.js"></script>
+
+	<link rel="icon" type="image/png" href="favicon.ico" />
+
+	<link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="css/bootstrap-select.css" rel="stylesheet" type="text/css" />
+	<link href="css/resizableColumns.css" rel="stylesheet" type="text/css" />
+	<link href="css/jqueryFileTree.css" rel="stylesheet" type="text/css" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+	<div id="noload"
+		style="position:fixed; top:0px; height:100%; left:0px; width:100%; background:white; padding:40px;">
+		<br>
+		<div>
+			Your system was unable to load BitTorrent Sync properly.
+			For information on how to fix this issue, please see the
+			<a href="http://sync-help.bittorrent.com/customer/portal/articles/1706559-screen-loading-error">Sync
+				Knowledge Base</a>.
+		</div>
+		<br>
+		<div id="user-agent-text"></div>
+		<br>
+		<input type="button" onClick="history.go(0)" value="Reload">
+		<br><br>
+	</div>
+	<script language="javascript" type="text/javascript">
+		document.getElementById('user-agent-text').innerHTML = navigator.userAgent;
+	</script>
+
+	<div id="browser-container">
+		<div id="main-container">
+			<div id="logo-container">
+				<img id="logo-image" src="images/logo.png">
+			</div>
+			<div id="center-container">
+				<div class="textmain">
+					Sync does not support your web browser.
+				</div>
+				<div class="text">
+					For your security, please use a current version of Chrome or Firefox.
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script id="template-bad-browser" type="text/x-handlebars-template">
+<div id="main-container">
+	<div id="logo-container">
+		<img id="logo-image" src="images/logo.png">
+	</div>
+	<div id="center-container">
+		<div class="textmain">
+			{{t 'badBrowserMessageMain'}}
+		</div>
+		<div class="text">
+			{{t 'badBrowserMessageSub'}}
+		</div>
+	</div>
+</div>
+</script>
+
+	<script id="template-license-dialog" type="text/x-handlebars-template">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2>{{t 'welcome'}}</h2>
+			</div>
+			<div class="modal-body">
+				<div class="logoGraphicContainer">
+					<img class="logoGraphic" src="images/logo.svg" />
+				</div>
+				<div id="userpassModule">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<p class="text-center">{{t 'createUsernameMessage'}}</p>
+							<div class="form-group">
+								<label class="sr-only" for="pass-username">{{t 'username'}}</label>
+								<input type="text" class="form-control" id="pass-username" placeholder="{{t 'username'}}">
+							</div>
+							<div class="form-group">
+								<label class="sr-only" for="pass-newpassword">{{t 'password'}}</label>
+								<input type="password" class="form-control" id="pass-newpassword" placeholder="{{t 'password'}}">
+							</div>
+							<div class="form-group">
+								<label class="sr-only" for="pass-confirmpassword">{{t 'confirmPassword'}}</label>
+								<input type="password" class="form-control" id="pass-confirmpassword" placeholder="{{t 'confirmPassword'}}">
+							</div>
+							<div class="alert alert-warning" style="display: none;">
+								<span class="mycon mycon-exclamation"></span>
+								<span id="credentialsError">{{{t 'invalidPassword'}}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<img class="introGraphic" src="images/splash.png" />
+			</div>
+			<div class="modal-footer">
+				<label>
+					<input type="checkbox" name="licenseAccept" /> {{{t 'licenseDialog2'}}}
+				</label>
+				<button class="btn btn-primary accept pull-right" disabled="disabled">{{t 'getStarted'}}</button>
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-settings-dropdown" type="text/x-handlebars-template">
+	<a data-toggle="dropdown" class="btn btn-naked dropdown-toggle"><span class="mycon mycon-settings"></span></a>
+	<ul class="dropdown-menu pull-right" role="menu">
+		<li class="has-icon"><a href="#" id="pause-button"><span class="mycon {{#if paused.attributes.value}}mycon-menu-resume{{else}}mycon-menu-pause{{/if}}"></span>{{#if paused.attributes.value}}{{t 'unpause'}}{{else}}{{t 'pause'}}{{/if}}</a></li>
+		<li class="has-icon"><a href="#" id="enter-key-button" data-toggle="modal"><span class="mycon mycon-menu-key"></span>{{#if isDesktop}}{{t 'enterAKey'}}{{else}}{{t 'enterAKeyOrLink'}}{{/if}}{{t 'ellipse'}}</a></li>
+		{{#if aodFlag}}
+		<li class="has-icon"><a href="#" id="aods-button" data-toggle="modal"><span class="mycon mycon-menu-aods"></span>AODs{{t 'ellipse'}}</a></li>
+		{{/if}}
+		<li class="has-icon"><a href="#" id="settings-button" data-toggle="modal"><span class="mycon mycon-menu-preferences"></span>{{t 'preferences'}}{{t 'ellipse'}}</a></li>
+		<li class="has-icon"><a href="http://sync-help.bittorrent.com" id="help-button" data-toggle="modal"><span class="mycon mycon-menu-help"></span>{{t 'help'}}{{t 'ellipse'}}</a></li>
+	</ul>
+</script>
+
+	<script id="template-main" type="text/x-handlebars-template">
+	<div id="mainContainer">
+		<div>
+			{{#if isDesktop}}
+				<div class="pull-left">
+					<a id="add-folder-button" role="button" class="btn btn-primary"><span class="mycon mycon-addfolder"></span> <span>{{t 'addFolder'}}</span></a>
+				</div>
+			{{else}}
+				<img class="pull-left" src="images/logo.svg" draggable="false" />
+			{{/if}}
+			<div id="topButtons" class="pull-right">
+				<span class="notificationButtonContainer">
+
+				</span>
+				{{#unless isDesktop}}
+					<a id="add-folder-button"
+						role="button"
+						class="btn btn-naked"
+						data-toggle="tooltip"
+						data-placement="bottom"
+						data-delay="500"
+						title="{{t 'addFolder'}}"
+					><span class="mycon mycon-addfolder-naked"></span></a>
+					<a id="enter-link-button"
+						role="button"
+						class="btn btn-naked"
+						data-toggle="tooltip"
+						data-placement="bottom"
+						data-delay="500"
+						title="{{t 'enterAKeyOrLink'}}"
+					><span class="mycon mycon-enterlink-naked"></span></a>
+				{{/unless}}
+				<a id="history-button"
+					role="button"
+					class="btn btn-naked"
+					data-toggle="tooltip"
+					data-placement="bottom"
+					data-delay="500"
+					title="{{t 'history'}}"
+				><span class="mycon mycon-history"></span></a>
+				<span id="settings-button-group"></span>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div id="folderContainer" class="tableScrollContainer {{#if isDesktop}}desktop{{/if}}">
+		</div>
+		{{#unless isDesktop}}
+		<p id="totalspeed" class="pull-right">
+			<span class="mycon down" /><span class="downSpeed" />
+			<span class="mycon up" /><span class="upSpeed" />
+		</p>
+		{{/unless}}
+		</div>
+		{{#unless isDesktop}}
+		<p id="totalspeed" class="pull-right">
+			<span class="mycon down" /><span class="downSpeed" />
+			<span class="mycon up" /><span class="upSpeed" />
+		</p>
+		{{/unless}}
+	</div>
+	<div id="user-agent" class="hidden"></div>
+</script>
+
+	<script id="template-notification-center-icon" type="text/x-handlebars-template">
+	<a id="notifications-button"
+		role="button"
+		class="btn btn-naked"
+		disabled="disabled"
+	><span class="mycon mycon-notifications"></span><div class="mybadge"></div></a>
+</script>
+
+	<script id="template-settings-dialog" type="text/x-handlebars-template">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="mycon mycon-close"></span>
+				</button>
+				<h2>{{t 'preferences'}}</h2>
+			</div>
+
+			<div class="modal-body">
+				<ul class="nav nav-tabs nav-sub-tabs" data-tabs="tabs">
+						<li class="active"><a href="#sync-settings-general-tab" data-toggle="tab">{{t 'general'}}</a></li>
+						{{#unless isDesktop}}
+						<li><a href="#sync-settings-username-tab" data-toggle="tab">{{t 'login'}}</a></li>
+						{{/unless}}
+						<li><a href="#sync-settings-advanced-tab" data-toggle="tab">{{t 'advanced'}}</a></li>
+				</ul>
+				<div class="tab-content">
+					<div id="sync-settings-general-tab" class="tab-pane active">
+						{{#if useridentity.username}}
+							<table class="table-label extra-padding">
+								<tbody>
+									<tr>
+										<td class="row-label">{{t 'username'}}:</td>
+										<td>
+											<div id="usernamefield">{{useridentity.username}}</div>
+										</td>
+									</tr>
+									<tr>
+										<td class="row-label">{{t 'deviceName'}}:</td>
+										<td>
+											<div id="devicenamefield">{{useridentity.devicename}}</div>
+										</td>
+									</tr>
+									<tr>
+										<td class="row-label">{{t 'fingerprint'}}:</td>
+										<td>
+											<div id="fingerprintfield" class="text-selectable">{{formatFingerprint useridentity.fingerprint}}</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						{{else}}
+							<div class="form-inline">
+								<div class="form-group">
+									<label class="control-label" for="devicename">{{t 'deviceName'}}:</label>
+									<span id="deviceNameView" class="form-control-static va-middle">
+										<span id="devicenameLabel">{{settings.devicename}}</span><span class="separator">|</span><a href="javascript:void(0);">{{t 'edit'}}</a>
+									</span>
+									<span id="deviceNameEdit" style="display: none;">
+										<input type="text" id="devicename" class="form-control" value="{{settings.devicename}}">
+									</span>
+								</div>
+							</div>
+						{{/if}}
+						{{#if isDesktop}}
+						<div class="checkbox vertical-space">
+							<label>
+								<input type="checkbox" name="chk_showNotifications" {{#if settings.show_notifications}}checked{{/if}} /> {{t 'showNotifications'}}
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="chk_startAutomatically" {{#if settings.autostart}}checked{{/if}} /> {{t 'startAtStartup'}}
+							</label>
+						</div>
+						{{/if}}
+						<h5 class="vertical-space">{{t 'showColumns'}}</h5>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="chk_col_receivingSpeed" {{#if columns.receivingSpeed}}checked{{/if}} /> {{t 'receiving'}}
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="chk_col_sendingSpeed" {{#if columns.sendingSpeed}}checked{{/if}} /> {{t 'sending'}}
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="chk_col_progress" {{#if columns.progress}}checked{{/if}} /> {{t 'progress'}}
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="chk_col_path" {{#if columns.path}}checked{{/if}} /> {{t 'path'}}
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="chk_col_size" {{#if columns.size}}checked{{/if}} /> {{t 'size'}}
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="chk_col_dateAdded" {{#if columns.date_added}}checked{{/if}} /> {{t 'dateAdded'}}
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="chk_col_dateModified" {{#if columns.last_modified}}checked{{/if}} />{{t 'lastSynced'}}
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="chk_col_peers" {{#if columns.peers}}checked{{/if}} /> {{t 'peers'}}
+							</label>
+						</div>
+						<div class="vertical-space">
+							<label id="language-label" class="control-label control-label-block" for="languagedrop">{{t 'language'}}:</label>
+							<select id="languagedrop" class="selectpicker dropup clearfix">
+								<option value="">{{t 'systemDefault'}}</option>
+								<option value="en">English</option>
+								<option value="de">Deutsch</option>
+								<option value="ptPT">Português (Portugal)</option>
+								<option value="ptBR">Português (Brasil)</option>
+								<option value="fr">Français</option>
+								<option value="ja">日本語</option>
+								<option value="zhCN">简体中文</option>
+								<option value="zhTW">繁體中文</option>
+								<option value="it">Italiano</option>
+								<option value="ko">한국어</option>
+								<option value="esES">Español</option>
+								<option value="ru">Русский</option>
+							</select>
+							<p id="languageSaveMessage" class="help-block" style="visibility: hidden;">{{t 'restartToApply'}}</p>
+						</div>
+					</div>
+					<div id="sync-settings-username-tab" class="tab-pane">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="alert alert-warning">
+									<span class="mycon mycon-exclamation"></span>
+									<span id="credentialsError">{{{t 'invalidPassword'}}}</span>
+								</div>
+								<div class="form-group">
+									<label class="control-label">{{t 'username'}}</label>
+									<input type="text" id="username" class="form-control" value="{{username.username}}">
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="newpassword">{{t 'newPassword'}}</label>
+									<input type="password" id="newpassword" class="form-control">
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="oldpassword">{{t 'currentPasswordMessage'}}</label>
+									<input type="password" id="oldpassword" class="form-control">
+								</div>
+								<div class="form-group">
+									<button class="btn btn-primary">{{t 'save'}}</button><span class="saveConfirmation mycon mycon-check"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="sync-settings-advanced-tab" class="tab-pane form-expanded">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="chk_showCopy" {{#if settings.show_copy_key}}checked{{/if}} /> {{t 'showCopy'}}
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="chk_checkForUpdates" {{#if settings.check_update}}checked{{/if}} /> {{t 'checkForUpdatesAutomatically'}}
+						{{#if isDesktop}}
+								<span class="separator">|</span>
+								<a class="h3" id="checkForUpdate" href="javascript:void(0);">{{t 'checkNow'}}</a>
+							</label>
+						{{/if}}
+
+						</div>
+						<div class="checkbox">
+							<label>
+								<input id="portmapping" type="checkbox" {{#if settings.portmapping}}checked{{/if}} />{{t 'useUpnp'}}
+							</label>
+						</div>
+
+						<div class="form-inline">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" id="chk_dlrate" {{#if settings.dlrate}}checked{{/if}} /> {{t 'downloadLimit'}}
+									<input type="text" id="dlrate" class="form-control input-sm" size="6" {{#unless settings.dlrate}}disabled{{/unless}} value="{{settings.dlrate}}">
+									<span class="error-container"></span>
+								</label>
+							</div>
+						</div>
+						<div class="form-inline">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" id="chk_ulrate" {{#if settings.ulrate}}checked{{/if}} /> {{t 'uploadLimit'}}
+									<input type="text" id="ulrate" class="form-control input-sm" size="6" {{#unless settings.ulrate}}disabled{{/unless}} value="{{settings.ulrate}}">
+									<span class="error-container"></span>
+								</label>
+							</div>
+						</div>
+						<div class="form-inline">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" id="chk_listeningport" {{#if settings.listeningport}}checked{{/if}} /> {{t 'listeningPort'}}
+									<input type="text" id="listeningport" name="listeningport_value" class="form-control input-sm" size="6" {{#unless settings.listeningport}}disabled{{/unless}} value="{{settings.listeningport}}">
+									<span class="error-container"></span>
+								</label>
+							</div>
+						</div>
+
+						<div class="checkbox">
+							<label>
+								<input id="debuglogging" type="checkbox" {{#if settings.debug_logging}}checked{{/if}} />{{t 'enableDebugLogging'}}
+							</label>
+						</div>
+
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="chk_useProxy" {{#if proxy.type}}checked{{/if}} /> {{t 'useProxyServer'}}
+								<span id="proxySaveMessage" class="error-container h5" style="display: none;">{{t 'restartToApply'}}</span>
+							</label>
+
+						</div>
+						<div id="proxySettings" class="row" style="{{#unless proxy.type}}display: none;{{/unless}}">
+							<div class="col-xs-12">
+								<form class="form-inline">
+									<div class="form-group">
+										<label class="sr-only" for="proxyType">{{t 'proxyServer'}}:</label>
+										<select class="form-control" id="proxyType">
+											<option value="1" {{#myif proxy.type 1}}selected{{/myif}}>SOCKS4</option>
+											<option value="2" {{#myif proxy.type 2}}selected{{/myif}}>SOCKS5</option>
+											<option value="3" {{#myif proxy.type 3}}selected{{/myif}}>HTTPS</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label class="sr-only" for="proxyAddress">{{t 'address'}}</label>
+										<input type="text" class="form-control" id="proxyAddress" placeholder="{{t 'address'}}" value="{{proxy.addr}}" />
+									</div>
+									<div class="form-group">
+										<label class="sr-only" for="proxyPort">{{t 'port'}}</label>
+										<input type="text" class="form-control" id="proxyPort" placeholder="{{t 'port'}}" value="{{proxy.port}}" />
+									</div>
+								</form>
+								<div id="proxyErrorContainer" class="error-container h5" style="margin-left: 0;"></div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="chk_proxyAuth" {{#if proxy.need_auth}}checked{{/if}} /> {{t 'authentication'}}
+									</label>
+								</div>
+								<form id="proxyAuthSettings" class="form-inline row" style="{{#unless proxy.need_auth}}display: none;{{/unless}}">
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="sr-only" for="proxyAuthUsername">{{t 'username'}}</label>
+											<input type="text" id="proxyAuthUsername" class="form-control" placeholder="{{t 'username'}}" value="{{proxy.username}}" />
+										</div>
+										<div class="form-group">
+											<label class="sr-only" for="proxyAuthPassword">{{t 'password'}}</label>
+											<input type="password" id="proxyAuthPassword" class="form-control" placeholder="{{t 'password'}}" value="{{proxy.password}}" />
+										</div>
+									</div>
+								</form>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="chk_proxyHostname" {{#if proxy.proxy_resolve_hostnames}}checked{{/if}} /> {{t 'useProxyForHostname'}}
+									</label>
+								</div>
+							</div>
+						</div>
+						{{#if isDesktop}}
+							<a href="javascript:void(0);" id="showSuperAdvanced">{{t 'superAdvancedSettings'}}</a>
+						{{/if}}
+					</div>
+				</div>
+
+				<div id="version_label" class="small">
+					<div>
+						<span class="h4">{{t 'version'}}:</span> {{ version }} Beta
+					</div>
+					<div class="gray-7">&copy; 2014 BitTorrent, Inc.</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-add-folder-dialog" type="text/x-handlebars-template">
+	<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="mycon mycon-close"></span>
+				</button>
+				<h2>{{t 'addFolder'}}</h2>
+				<h3>{{t 'chooseAFolderToSync'}}</h3>
+			</div>
+
+			<div class="modal-body">
+
+				<div id="add-error" class="alert alert-danger hide"></div>
+
+				<div class="fileTreeContainer">
+					<div class="form-horizontal">
+						<div class="form-group">
+							<label for="add-directory" class="control-label sr-only">{{t 'path'}}</label>
+							<div class="col-sm-12">
+								<input type="text" id="add-directory" class="form-control">
+							</div>
+						</div>
+					</div>
+					<hr />
+					<div style="height:200px; overflow:auto">
+						<div id="filetree"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<div class="pull-left">
+					<div id="create-folder" data-container="body" data-toggle="tooltip" data-placement="top" title="{{t 'cantWriteToDirectory'}}" >
+						<button class="btn btn-link addFolder disabled">{{t 'newFolder'}}</button>
+					</div>
+				</div>
+				<button id="add-ok" class="btn btn-primary width-80">{{t 'add'}}</button>
+				<button id="add-cancel" class="btn btn-default width-80">{{t 'cancel'}}</button>
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-folder-preferences" type="text/x-handlebars-template">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header folder-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="mycon mycon-close"></span>
+				</button>
+				<h2>{{> partial-folder-path}}</h2>
+			</div>
+			<div class="modal-body">
+				<div class="checkbox">
+					<label><input id="relay" type="checkbox" {{#if prefs.relay}}checked{{/if}} /> {{t 'relayServer'}}</label>
+				</div>
+				<div class="checkbox">
+					<label><input id="usetracker" type="checkbox" {{#if prefs.usetracker}}checked{{/if}} /> {{t 'trackerServer'}}</label>
+				</div>
+				<div class="checkbox">
+					<label><input id="searchlan" type="checkbox" {{#if prefs.searchlan}}checked{{/if}} />{{t 'searchLan'}}</label>
+				</div>
+				<div class="checkbox">
+					<label><input id="searchdht" type="checkbox" {{#if prefs.searchdht}}checked{{/if}} /> {{t 'searchDHT'}}</label>
+				</div>
+				<div class="checkbox">
+					<label><input id="deletetotrash" type="checkbox" {{#if prefs.deletetotrash}}checked{{/if}} /> {{t 'storeDeletedFiles'}}</label>
+				</div>
+				{{#unless iswritable}}
+					<div class="checkbox">
+						<label><input id="override" type="checkbox" {{#if prefs.override}}checked{{/if}} /> {{t 'override'}}</label>
+					</div>
+				{{/unless}}
+				<div class="checkbox">
+					<label id="useHostsLabel"><input id="usehosts" type="checkbox" {{#if prefs.usehosts}}checked{{/if}} /> {{t 'usePredefinedHosts'}}</label>
+				</div>
+				<div id="predefinedHostsSection" style="{{#unless prefs.usehosts}}display: none;{{/unless}}">
+					<div class="form-inline">
+						<div class="form-group">
+							<label class="sr-only" for="address">{{t 'address'}}</label>
+							<input id="address" type="text" class="form-control" placeholder="{{t 'address'}}"/> :
+						</div>
+						<div class="form-group">
+							<label class="sr-only" for="port">{{t 'port'}}</label>
+							<input id="port" type="text" class="form-control" min="0" placeholder="{{t 'port'}}"/>
+						</div>
+						<button id="addhost" class="btn btn-default">{{t 'add'}}</button>
+					</div>
+
+					<div class="control-group">
+						<div class="controls scroll">
+							<ul id="hostlist" class="list-unstyled">
+							</ul>
+						</div>
+					</div>
+				</div>
+				{{#if has_key}}
+					<div class="collapse-container section-header">
+						<a href="javascript:void(0);" class="btn btn-link collapsed" data-toggle="collapse" data-target="#prefsViewKey">
+							{{> partial-svg-back}}
+							{{t 'viewKey'}}
+						</a>
+					</div>
+					<div id="prefsViewKey" class="collapse">
+						{{#unless isDesktop}}
+							<label>{{#myif browserInfo.os 'mac'}}{{{t 'copyKeyInstructions' cmd='&#8984;+C'}}}{{else}}{{t 'copyKeyInstructions' cmd='Ctrl+C'}}{{/myif}}</label>
+						{{/unless}}
+						{{#if iswritable}}
+							<div class="pref-key">
+								<strong>{{t 'readWriteKey'}}:</strong> <span class="text-selectable">{{secret}}</span> {{#if isDesktop}}<span class="separator">|</span> <a href="javascript:void(0);" class="copy-btn" data-clipboard-target="{{secret}}" data-secret-type="readWrite"><span class="mycon mycon-copy"></span> {{t 'copy'}}</a>{{/if}}
+							</div>
+						{{/if}}
+						{{#myunless secrettype 4}}
+							<div class="pref-key">
+								<strong>{{t 'readOnlyKey'}}:</strong> <span class="text-selectable">{{readonlysecret}}</span> {{#if isDesktop}}<span class="separator">|</span> <a href="javascript:void(0);" class="copy-btn"data-clipboard-target="{{readonlysecret}}" data-secret-type="readonly"><span class="mycon mycon-copy"></span> {{t 'copy'}}</a>{{/if}}
+							</div>
+						{{/myunless}}
+						{{#if encryptedsecret}}
+							<div class="pref-key">
+								<strong>{{t 'encryptedKey'}}:</strong> <span class="text-selectable">{{encryptedsecret}}</span> {{#if isDesktop}}<span class="separator">|</span> <a href="javascript:void(0);" class="copy-btn" data-clipboard-target="{{encryptedsecret}}" data-secret-type="encrypted"><span class="mycon mycon-copy"></span> {{t 'copy'}}</a>{{/if}}
+							</div>
+						{{/if}}
+
+						{{#if iswritable}}
+							<button id="updateSecretButton" class="btn btn-primary">{{t 'updateSecretButton'}}</button>
+						{{/if}}
+					</div>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-empty-dialog" type="text/x-handlebars-template">
+	<div class="modal-dialog {{#if modalSize}}modal-{{modalSize}}{{/if}}">
+			<div id="modal-content-container" class="modal-content">
+		</div>
+	</div>
+</script>
+
+	<script id="template-sharing-content" type="text/x-handlebars-template">
+	<div class="modal-header folder-header">
+		{{#if isModal}}
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				<span class="mycon mycon-close"></span>
+			</button>
+			{{/if}}
+		<h2>{{> partial-folder-path}}</h2>
+	</div>
+	<div class="modal-body">
+		{{#myunless secrettype 4}}
+			<div class="shareContainer">
+				<h5 class="fw700">{{t 'permission'}}</h5>
+				<div class="radio">
+					<label>
+						<input type="radio" name="optionsRadios" id="radio-readonly" value="option1" {{#unless shareOptions.readwrite}}checked{{/unless}}>
+						{{t 'readonly'}}
+					</label>
+				</div>
+				<div class="radio">
+					<label {{#unless iswritable}}class="disabled" data-toggle="tooltip" title="{{t 'shareReadOnlyMessage'}}" data-placement="right" {{/unless}}>
+						<input type="radio" name="optionsRadios" id="radio-readwrite" value="option2" {{#if shareOptions.readwrite}}checked{{/if}} {{#unless iswritable}}disabled{{/unless}} />
+						{{t 'readWrite'}}
+					</label>
+				</div>
+			</div>
+			<div class="mainSharePane">
+				<div class="shareContainer">
+					<h5 class="fw700">{{t 'security'}}</h5>
+					<div class="form-inline">
+						<div class="checkbox">
+							<label>
+								<input id="cb-approval" type="checkbox" {{#if shareOptions.approvals}}checked{{/if}} /> {{t 'mustApprovePeers'}}
+							</label>
+						</div>
+					</div>
+					<div class="form-inline">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="chk_expireOption" {{#myunless shareOptions.expiration 0}}checked{{/myunless}} /> {{t 'linkExpireIn'}} <input class="form-control input-sm sharing-input" type="text" size="5" name="expireValue" {{#myunless shareOptions.expiration 0}}value="{{shareOptions.expiration}}"{{else}} disabled="disabled"{{/myunless}} /> {{t 'days'}}. <span class="error-container">Here is some error message</span>
+							</label>
+						</div>
+					</div>
+					<div class="form-inline">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="chk_limitOption" {{#myunless shareOptions.usages 0}}checked{{/myunless}} /> {{t 'linkCanBeUsed'}} <input class="form-control input-sm sharing-input" type="text" size="5" name="limitValue" {{#myunless shareOptions.usages 0}}value="{{shareOptions.usages}}"{{else}}disabled="disabled"{{/myunless}} /> {{t 'times'}}. <span class="error-container"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="shareOptions">
+					<a class="shareOption emailOption" href="javascript:void(0);">
+						<span></span>
+						{{t 'email'}}
+					</a>
+					<a class="shareOption copyOption" href="javascript:void(0);">
+						<span></span>
+						{{t 'copy'}}
+					</a>
+					<a class="shareOption qrOption" href="javascript:void(0);">
+						<span></span>
+						{{t 'qrCode'}}
+					</a>
+				</div>
+			</div>
+			<div class="qrPane" style="display: none;">
+				<button class="btn btn-default backButton"><span class="mycon mycon-back"></span><span class="btn-txt">{{t 'back'}}</span></button>
+				<div class="qrCode"></div>
+				<div class="qrInstructions">{{{t 'qrInstructions' syncMobileLink="http://www.bittorrent.com/sync/get-started/mobile"}}}</div>
+			</div>
+		{{else}}
+			<div class="encryptedSharingContainer">
+				<span class="mycon mycon-folder-locked"></span>
+				<h2>{{t 'encryptedSharingMessage'}}</h2>
+				<p class="h3 gray-10">{{{t 'encryptedSharingMessage2'}}}</p>
+			</div>
+		{{/myunless}}
+	</div>
+</script>
+
+	<script id="template-folderContextMenu" type="text/x-handlebars-template">
+	<ul class="dropdown-menu" role="menu">
+		<li class="{{#if columns.receivingSpeed}}enabled{{/if}}"><a tabindex="-1" href="javascript:void(0);" data-value="receivingSpeed"><span class="out"><span>{{t 'receiving'}}</span></span></a></li>
+		<li class="{{#if columns.sendingSpeed}}enabled{{/if}}"><a tabindex="-1" href="javascript:void(0);" data-value="sendingSpeed"><span class="out"><span>{{t 'sending'}}</span></span></a></li>
+		<li class="{{#if columns.progress}}enabled{{/if}}"><a tabindex="-1" href="javascript:void(0);" data-value="progress"><span class="out"><span>{{t 'progress'}}</span></span></a></li>
+		<li class="{{#if columns.path}}enabled{{/if}}"><a tabindex="-1" href="javascript:void(0);" data-value="path"><span class="out"><span>{{t 'path'}}</span></span></a></li>
+		<li class="{{#if columns.size}}enabled{{/if}}"><a tabindex="-1" href="javascript:void(0);" data-value="size"><span class="out"><span>{{t 'size'}}</span></span></a></li>
+		<li class="{{#if columns.date_added}}enabled{{/if}}"><a tabindex="-1" href="javascript:void(0);" data-value="date_added"><span class="out"><span>{{t 'dateAdded'}}</span></span></a></li>
+		<li class="{{#if columns.last_modified}}enabled{{/if}}"><a tabindex="-1" href="javascript:void(0);" data-value="last_modified"><span class="out"><span>{{t 'lastSynced'}}</span></span></a></li>
+		<li class="{{#if columns.peers}}enabled{{/if}}"><a tabindex="-1" href="javascript:void(0);" data-value="peers"><span class="out"><span>{{t 'peers'}}</span></span></a></li>
+	</ul>
+</script>
+
+	<script id="template-folder" type="text/x-handlebars-template">
+	<td class="nameColumn">
+		<span
+			data-toggle="tooltip"
+			data-placement="top"
+			data-html="true"
+			data-delay="300"
+			data-container="body"
+			title="{{> partial-folder-path-tooltip}}"
+		>
+			{{~> partial-folder-icon~}}
+			<span class="nameLabel">{{~name~}}</span>
+		</span>
+	</td>
+	<td class="statusColumn statusType-{{statusType}}">
+		<span>
+			<span class="statusMessage">
+				{{renderStatus}}
+			</span>
+			{{#if locked_files}}{{> partial-status-locked-files}}{{/if}}
+			{{#if indexing}}{{> partial-status-indexing}}{{/if}}
+		</span>
+	</td>
+	{{> partial-folder-insert}}
+	<td class="paddingColumn"></td>
+	<td class="options">
+		<div class="options-container">
+			{{#if keyrequest.invalid}}
+				<div class="disconnectButton">
+					<span class="mycon mycon-close"></span>
+				</div>
+			{{else}}
+				<div class="optionsButton">
+					<a class="no-click" data-toggle="dropdown">
+						<span class="mycon mycon-options no-click"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu">
+						{{#if showCopy}}
+							{{#if has_key}}
+								<li class="has-icon"><a class="copy-triggerRO" href="javascript:void(0);"><span class="mycon mycon-menu-copykey"></span>{{t 'copyKeyRO'}}</a></li>
+								{{#if iswritable}}
+									<li class="has-icon"><a class="copy-triggerRW" href="javascript:void(0);"><span class="mycon mycon-menu-copykey"></span>{{t 'copyKeyRW'}}</a></li>
+								{{/if}}
+							{{/if}}
+						{{/if}}
+						{{#if has_key}}
+							<li class="has-icon"><a class="peerlist-trigger" href="javascript:void(0);"><span class="mycon mycon-menu-peerlist"></span>{{t 'peerList'}}</a></li>
+							{{#if isDesktop}}<li class="has-icon"><a class="openarchive-trigger" href="javascript:void(0);"><span class="mycon mycon-menu-openarchive"></span>{{t 'optionsMenu.openArchive'}}</a></li>{{/if}}
+						{{/if}}
+						<li class="has-icon"><a class="properties-trigger" href="javascript:void(0);"><span class="mycon mycon-menu-preferences"></span>{{t 'preferences'}}...</a></li>
+						<li class="has-icon"><a class="delete-trigger" href="javascript:void(0);"><span class="mycon mycon-menu-disconnect"></span>{{t 'disconnect'}}</a></li>
+					</ul>
+				</div>
+				{{#if has_key}}
+					<div class="divider">|</div>
+					<div class="shareButton">
+						<span class="mycon mycon-share"></span>
+						{{t 'share'}}
+					</div>
+				{{/if}}
+			{{/if}}
+		</div>
+	</td>
+</script>
+
+	<script id="partial-folder-path-tooltip" type="text/x-handlebars-template">
+{{doubleEscape path}}<br/><small>(
+{{~#myif secrettype 1 ~}}
+	{{t 'fullAccess'}}
+{{~else~}}
+	{{t 'readonly'}}
+{{~/myif}})</small>
+</script>
+
+	<script id="partial-folder-status" type="text/x-handlebars-template">
+{{renderStatus}}
+</script>
+
+	<script id="partial-folder-insert" type="text/x-handlebars-template">
+	{{#if columns.receivingSpeed}}
+		<td class="receivingSpeedColumn">
+			{{> partial-folder-receiving-speed}}
+		</td>
+	{{/if}}
+	{{#if columns.sendingSpeed}}
+		<td class="sendingSpeedColumn">
+			{{> partial-folder-sending-speed}}
+		</td>
+	{{/if}}
+	{{#if columns.progress}}
+		<td class="progressColumn">
+			{{> partial-folder-progress}}
+		</td>
+	{{/if}}
+	{{#if columns.path}}
+		<td class="pathColumn">
+			{{path}}
+		</td>
+	{{/if}}
+	{{#if columns.size}}
+		<td class="sizeColumn text-right">
+			{{#if has_key}}
+				{{formatFileSize size}}
+			{{/if}}
+		</td>
+	{{/if}}
+	{{#if columns.date_added}}
+		<td class="dateAddedColumn">
+			{{> partial-folder-dateadded}}
+		</td>
+	{{/if}}
+	{{#if columns.last_modified}}
+		<td class="lastModifiedColumn">
+			{{> partial-folder-lastmodified}}
+		</td>
+	{{/if}}
+	{{#if columns.peers}}
+	<td class="peersColumn">
+		{{> partial-folder-peers}}
+	</td>
+	{{/if}}
+</script>
+
+	<script id="partial-folder-receiving-speed" type="text/x-handlebars-template">
+	{{#myunless down_speed 0}}
+		<span class="mycon down"></span>
+		<span>{{formatSpeed down_speed}}</span>
+	{{/myunless}}
+</script>
+
+	<script id="partial-folder-sending-speed" type="text/x-handlebars-template">
+	{{#myunless up_speed 0}}
+		<span class="mycon up"></span>
+		<span>{{formatSpeed up_speed}}</span>
+	{{/myunless}}
+</script>
+
+	<script id="partial-folder-progress" type="text/x-handlebars-template">
+	{{#if has_key}}
+		{{#myunless down_status 100}}
+			<span class="mycon down-sm"></span>
+			<span class="statusValue">{{down_status}}%</span>
+			<span class="bullet">{{formatDateFromNowMs down_eta true}}</span>
+		{{/myunless}}
+		{{#myunless up_status 100}}
+			<span class="mycon up-sm"></span>
+			<span class="statusValue">{{up_status}}%</span>
+			<span class="bullet">{{formatDateFromNowMs up_eta true}}</span>
+		{{/myunless}}
+	{{/if}}
+</script>
+
+	<script id="partial-folder-dateadded" type="text/x-handlebars-template">
+	{{#if has_key}}
+		{{#if date_added}}
+			<span title="{{formatDateTime date_added}}">{{formatDateFromNow date_added}}</span>
+		{{/if}}
+	{{/if}}
+</script>
+
+	<script id="partial-folder-lastmodified" type="text/x-handlebars-template">
+	{{#if has_key}}
+		{{#if last_modified}}
+			<span title="{{formatDateTime last_modified}}">{{formatDateFromNow last_modified}}</span>
+		{{/if}}
+	{{/if}}
+</script>
+
+	<script id="partial-folder-peers" type="text/x-handlebars-template">
+	{{#if has_key}}
+		{{#unless keyrequest.invalid}}
+			<a class="peerlist-trigger" href="javascript:void(0);">{{numConnectedPeers}} of {{numPeers}} {{inflectNoun numPeers (t 'device') (t 'devices')}}</a>
+		{{/unless}}
+	{{/if}}
+</script>
+
+	<script id="partial-folder-icon" type="text/x-handlebars-template">
+	{{~#unless has_key~}}
+		<span class="mycon mycon-folder-pending-approval"></span>
+	{{~else~}}
+		{{~#myif secrettype 1 ~}}
+			<span class="mycon mycon-folder"></span>
+		{{~else~}}
+			{{~#myif secrettype 4 ~}}
+				<span class="mycon mycon-folder-locked-small"></span>
+			{{~else~}}
+				<span class="mycon mycon-folder-read-only"></span>
+			{{~/myif~}}
+		{{~/myif~}}
+	{{~/unless~}}
+</script>
+
+	<script id="template-aod-list-dialog" type="text/x-handlebars-template">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						<span class="mycon mycon-close"></span>
+					</button>
+					<h2>{{t 'mySyncDevices'}}</h2>
+				</div>
+				<div class="modal-body">
+					<div class="bodyStuff">
+						<div class="bodySwitcher">
+							<div id="aod-lists-container" class="modal-scroll-container">
+								<div class="section-header">
+									<h4>
+										{{t 'myDevices'}}
+									</h4>
+								</div>
+								<div id="paired-aods-container" class="tableScrollContainer">
+									<table id="paired-aods-table" class="table table-hover table-bordered-header">
+										<tbody>
+										</tbody>
+									</table>
+									<div class="emptyMessage">{{t 'noDevices'}}</div>
+								</div>
+								<div class="section-header">
+									<h4>
+										{{t 'devicesOnNetwork'}}
+									</h4>
+								</div>
+								<div id="discovered-aods-container" class="tableScrollContainer">
+									<table id="discovered-aods-table" class="table table-hover table-bordered-header no-border">
+										<tbody>
+										</tbody>
+									</table>
+									<div class="emptyMessage">{{t 'noDevices'}}</div>
+								</div>
+							</div>
+							<div id="manual-claim-form" class="text-center modal-scroll-container">
+								<h2>{{t 'addDeviceManually'}}</h2>
+								<div class="row">
+									<div class="col-md-4 col-md-offset-4">
+										<div class="form-group">
+											<input type="text" name="name" class="form-control input-sm" placeholder="{{t 'deviceName'}}" />
+										</div>
+										<div class="form-group">
+											<input type="text" name="address" class="form-control input-sm" placeholder="{{t 'ipAddress'}}" />
+										</div>
+										<div class="form-group">
+											<input type="text" name="port" class="form-control input-sm" placeholder="{{t 'port'}}" />
+										</div>
+										<div class="form-group">
+											<input type="text" name="peerport" class="form-control input-sm" placeholder="{{t 'aodListeningPort'}}" />
+										</div>
+										<div class="form-group">
+											<input type="text" name="username" class="form-control input-sm" placeholder="{{t 'username'}}" />
+										</div>
+										<div class="form-group">
+											<input type="password" name="password" class="form-control input-sm" placeholder="{{t 'password'}}" />
+										</div>
+										<div class="form-group">
+											<input type="button" value="{{t 'claim'}}" class="btn btn-primary input-sm" disabled="disabled" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="manual-claim-callout">
+						<a href="javascript:void(0);">
+							<span class="blue-5 h4">
+								<span class="mycon mycon-plus"></span>{{t 'addDeviceManually'}}
+							</span>
+						</a>
+					</div>
+					<div id="manual-claim-hide-callout">
+						<a href="javascript:void(0);">
+							<span class="blue-5 h4">
+								<span class="mycon mycon-down"></span>{{t 'hide'}}
+							</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-aod-device" type="text/x-handlebars-template">
+	<td>
+		{{name}}<br />
+		<span class="address">{{address}}:{{port}}</span>
+	</td>
+	<td class="status {{#myif state 0}}green-1{{/myif}}">
+		{{#myif state 0}}
+			{{t 'available'}}
+		{{/myif}}
+		{{#myif state 1}}
+			{{t 'owned'}}
+		{{/myif}}
+		{{#myif state 2}}
+			{{t 'pairingInProgress'}}
+		{{/myif}}
+	</td>
+	<td>
+		{{#myunless state 3}}
+			<div class="claimButton pull-right btn btn-naked">
+				<span class="mycon mycon-check"></span>{{t 'claim'}}
+			</div>
+		{{/myunless}}
+	</td>
+</script>
+
+	<script id="template-aod-claim-dialog" type="text/x-handlebars-template">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="mycon mycon-close"></span>
+				</button>
+				<h2>Claim "{{name}}"</h2>
+			</div>
+			<div class="modal-body">
+				{{#myif state 0}}
+					<p>{{t 'chooseALoginAndPassword'}}</p>
+				{{/myif}}
+				<div class="row">
+					<div class="col-xs-10">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<label class="control-label col-xs-4" for="pass-username">{{t 'login'}}:</label>
+								<div class="col-xs-8">
+									<input type="text" id="pass-username" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-xs-4" for="pass-newpassword">{{t 'password'}}:</label>
+								<div class="col-xs-8">
+									<input type="password" id="pass-newpassword" class="form-control" />
+								</div>
+							</div>
+							{{#myif state 0}}
+								<div class="form-group">
+									<label class="control-label col-xs-4" for="pass-confirmpassword">{{t 'confirmPassword'}}:</label>
+									<div class="col-xs-8">
+										<input type="password" id="pass-confirmpassword" class="form-control" />
+									</div>
+								</div>
+							{{/myif}}
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary accept width-80" disabled="disabled">{{t 'claim'}}</button>
+				<button class="btn btn-default cancel width-80">{{t 'cancel'}}</button>
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-peer-list-dialog" type="text/x-handlebars-template">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			<div class="modal-header folder-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="mycon mycon-close"></span>
+				</button>
+				<h2>{{> partial-folder-path}}</h2>
+			</div>
+			<div class="modal-body">
+				<div class="tableScrollContainer">
+					<table id="peers-table" class="table table-hover table-bordered-header no-border">
+						<thead>
+							<tr>
+								<th>{{t 'device'}}</th>
+								<th>{{t 'status'}}</th>
+								<th id="peerlistOptionHeader" class="text-right"></th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					<div class="emptyMessage">{{t 'noPeers'}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-connected-device" type="text/x-handlebars-template">
+	<td>
+		{{name}}
+		{{#unless direct}}
+			<a href="http://sync-help.bittorrent.com/customer/portal/articles/1656691-what-is-a-relay-server">
+				<span id="relay-icon" class="mycon mycon-relay" title="{{t 'indirect'}}"></span>
+			</a>
+		{{/unless}}
+	</td>
+	<td class="status">
+		{{#if error}}
+			<div>
+				<span class="mycon mycon-status-warning"></span> {{t (concat 'peerError' error)}}
+			</div>
+		{{else}}
+			{{#unless isonline}}
+				<div title="{{t 'lastSeen'}} {{formatDateFromNow lastsynctime}}">
+					<span class="mycon mycon-offline"></span><span> {{t 'offline'}}</span>
+				</div>
+			{{else}}
+				{{#if downdiff}}
+					<div>
+						<span class="mycon down"></span> {{formatFileSize downdiff}}
+					</div>
+				{{else}}
+					{{#if updiff}}
+						<div>
+							<span class="mycon up"></span> {{formatFileSize updiff}}
+						</div>
+					{{else}}
+						{{#if lastsynctime}}
+							<div title="{{formatDateTime lastsynctime}}">
+								<span class="mycon mycon-synced"></span> <span>{{t 'lastSynced'}} {{formatDateFromNow lastsynctime}}<span>
+							</div>
+						{{/if}}
+					{{/if}}
+				{{/if}}
+			{{/unless}}
+		{{/if}}
+	</td>
+	<td class="collapse-column text-right collapsed">
+		<div class="file-count {{#unless isonline}}invisible{{/unless}}">
+			{{#if totalfiles}}
+				{{inflectNoun totalfiles (t 'nfile') (t 'nfiles' count=totalfiles)}}
+				{{> partial-svg-back}}
+			{{/if}}
+		</div>
+	</td>
+</script>
+
+	<script id="template-file-queue" type="text/x-handlebars-template">
+	<td colspan="3" class="file-queue-col">
+		<div class="file-queue-container">
+			<table>
+				<tbody></tbody>
+				<tfoot></tfoot>
+			</table>
+		</div>
+	</td>
+</script>
+
+	<script id="template-file-queue-file" type="text/x-handlebars-template">
+	<td>
+		<span class="{{#myif action 'up'}}mycon up{{/myif}}{{#myif action 'down'}}mycon down{{/myif}}"></span>
+		<span>{{filename}}</span>
+	</td>
+	<td class="text-right">
+		<span>{{formatFileSize size}}</span>
+	</td>
+</script>
+
+	<script id="partial-file-message" type="text/x-handlebars-template">
+	<tr class="file-message">
+		<td class="text-center" colspan="2">{{t 'moreFiles' count=hiddencount}}</td>
+	</tr>
+</script>
+
+	<script id="template-folders" type="text/x-handlebars-template">
+	<div class="emptyMessage">
+		{{t 'loading'}}{{t 'ellipse'}}
+	</div>
+</script>
+
+	<script id="template-folder-table" type="text/x-handlebars-template">
+	<div class="tableHeaderContainer">
+		<table class="table table-header table-resizable table-hover table-bordered-header no-border">
+			<colgroup data-resizable-columns-id="foldertable2">
+				<col class="col-sizer" data-resizable-column-id="name" data-min-width="180"/>
+				<col class="col-sizer" data-resizable-column-id="status" data-min-width="180"/>
+				{{#if columns.receivingSpeed}}
+					<col class="col-sizer" data-resizable-column-id="receivingSpeed" data-min-width="100"/>
+				{{/if}}
+				{{#if columns.sendingSpeed}}
+					<col class="col-sizer" data-resizable-column-id="sendingSpeed" data-min-width="100"/>
+				{{/if}}
+				{{#if columns.progress}}
+					<col class="col-sizer" data-resizable-column-id="progress" data-min-width="100"/>
+				{{/if}}
+				{{#if columns.path}}
+					<col class="col-sizer" data-resizable-column-id="path" data-min-width="100"/>
+				{{/if}}
+				{{#if columns.size}}
+					<col class="col-sizer" data-resizable-column-id="size" data-min-width="100"/>
+				{{/if}}
+				{{#if columns.date_added}}
+					<col class="col-sizer" data-resizable-column-id="dateAdded" data-min-width="100"/>
+				{{/if}}
+				{{#if columns.last_modified}}
+					<col class="col-sizer" data-resizable-column-id="lastModified" data-min-width="100"/>
+				{{/if}}
+				{{#if columns.peers}}
+					<col class="col-sizer" data-resizable-column-id="peers" data-min-width="100"/>
+				{{/if}}
+				<col />
+				<col class="col-sizer" style="width: 180px;" />
+			</colgroup>
+			<thead>
+				<tr data-toggle="context" data-target="#folder-context-menu">
+					<th class="ui-resizable">{{t 'name'}}</th>
+					<th class="ui-resizable">{{t 'status'}}</th>
+					{{#if columns.receivingSpeed}}
+						<th class="ui-resizable">
+							{{t 'receiving'}}
+						</th>
+					{{/if}}
+					{{#if columns.sendingSpeed}}
+						<th class="ui-resizable">
+							{{t 'sending'}}
+						</th>
+					{{/if}}
+					{{#if columns.progress}}
+						<th class="ui-resizable">
+							{{t 'progress'}}
+						</th>
+					{{/if}}
+					{{#if columns.path}}
+						<th class="ui-resizable">
+							{{t 'path'}}
+						</th>
+					{{/if}}
+					{{#if columns.size}}
+						<th class="text-right ui-resizable">{{t 'size'}}</th>
+					{{/if}}
+					{{#if columns.date_added}}
+						<th class="ui-resizable">{{t 'dateAdded'}}</th>
+					{{/if}}
+					{{#if columns.last_modified}}
+						<th class="ui-resizable">{{t 'lastSynced'}}</th>
+					{{/if}}
+					{{#if columns.peers}}
+						<th class="ui-resizable">{{t 'connectedPeers'}}</th>
+					{{/if}}
+					<th class="paddingColumn no-border"></th>
+					<th id="fileTableOptionsHeader"></th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<div class="verticalScrollContainer">
+		<table id="filetable" class="table table-body table-resizable table-hover table-bordered-header no-border">
+			<colgroup>
+				<col />
+				<col />
+				{{#if columns.receivingSpeed}}
+					<col />
+				{{/if}}
+				{{#if columns.sendingSpeed}}
+					<col />
+				{{/if}}
+				{{#if columns.progress}}
+					<col />
+				{{/if}}
+				{{#if columns.path}}
+					<col />
+				{{/if}}
+				{{#if columns.size}}
+					<col />
+				{{/if}}
+				{{#if columns.date_added}}
+					<col />
+				{{/if}}
+				{{#if columns.last_modified}}
+					<col />
+				{{/if}}
+				{{#if columns.peers}}
+					<col />
+				{{/if}}
+				<col />
+				<col style="width: 180px;" />
+			</colgroup>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</script>
+
+	<script id="template-newdirectory" type="text/x-handlebars-template">
+	<a href="#">
+		<input type="text" class="form-control input-sm" placeholder="{{t 'untitledFolder'}}" />
+	</a>
+</script>
+
+	<script id="template-directory" type="text/x-handlebars-template">
+	<div class="directory-entry">
+		<a href="#" rel="{{dirPath}}">{{name}}</a>
+	</div>
+	<ul class="jqueryFileTree"></ul>
+</script>
+
+	<script id="template-update-secret-dialog" type="text/x-handlebars-template">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header folder-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="mycon mycon-close"></span>
+				</button>
+				<h2>{{> partial-folder-path}}</h2>
+			</div>
+			<div class="modal-body">
+				<div class="section-container">
+					<label for="keyInput">{{t 'receivedNewKey'}}</label>
+					<div class="input-group">
+						<input type="text" class="form-control" name="newSecret" placeholder="{{t 'pasteNewSecret'}}" />
+						<span class="input-group-btn">
+							<button id="updateSecretButton" class="btn btn-primary" type="button">{{t 'update'}}</button>
+						</span>
+					</div>
+					<div class="alert alert-warning invisible updateSecretErrorContainer">
+						<span class="mycon mycon-exclamation"></span>
+						<span></span>
+					</div>
+				</div>
+				{{#if iswritable}}
+					<div class="seperator text-center">
+						<h4>{{t 'or'}}</h4>
+					</div>
+					<div class="section-container text-center">
+						<button id="generateNewSecretButton" class="btn btn-primary">{{t 'generateNewSecret'}}</button>
+						<div class="alert alert-warning">
+							<span class="mycon mycon-exclamation"></span>
+							{{{t 'updateSecretWarning'}}}
+						</div>
+					</div>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-update-secret-success-dialog" type="text/x-handlebars-template">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="mycon mycon-close"></span>
+				</button>
+				<h2></h2>
+			</div>
+			<div class="modal-body">
+				<p>{{{t 'secretChangedMessage'}}}</p>
+				<div class="row">
+					<div class="col-xs-8">
+						<input type="text" class="form-control" value="{{secret}}" readonly>
+					</div>
+					<div class="col-xs-4">
+						{{#if isDesktop}}
+							<a href="javascript:void(0);" class="btn btn-primary copy-btn">{{t 'copy'}}</a>
+						{{/if}}
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="undoButton" class="btn btn-primary width-80">{{t 'undo'}}</button>
+				<button id="closeButton" class="btn btn-default width-80" data-dismiss="modal">{{t 'close'}}</button>
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-host-entry" type="text/x-handlebars-template">
+	<a class="close pull-right">
+		<span class="mycon mycon-close"></span>
+	</a>
+	<span>{{peer}}</span>
+</script>
+
+	<script id="partial-folder-path" type="text/x-handlebars-template">
+	<div class="folderPath">
+		<div class="iconContainer">
+			{{~> partial-folder-icon~}}
+		</div><div class="labelContainer">
+			<div>
+				{{#if pageTitle}}{{pageTitle}} - {{/if}}{{name}}
+			</div>
+			{{#if path}}
+				<div class="h4 gray-8">{{path}}</div>
+			{{/if}}
+		</div>
+	</div>
+</script>
+
+	<script id="template-enter-key-dialog" type="text/x-handlebars-template">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="mycon mycon-close"></span>
+				</button>
+				<h2>{{#if isDesktop}}{{t 'enterAKey'}}{{else}}{{t 'enterAKeyOrLink'}}{{/if}}</h2>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<br>
+					<label for="keyInput">{{#if isDesktop}}{{t 'newKeyMessage'}}{{else}}{{t 'newKeyMessageWebui'}}{{/if}}</label>
+					<div class="input-group">
+						<input id="enter-key-key" type="text" class="form-control" placeholder="{{#if isDesktop}}{{t 'enterAKey'}}{{else}}{{t 'enterAKeyOrLink'}}{{/if}}">
+						<span class="input-group-btn">
+							<button id="enter-key-next" class="btn btn-primary" type="button">Next</button>
+						</span>
+					</div>
+				</div>
+				<div id="enter-key-error" class="alert alert-warning invisible">
+					<span class="mycon mycon-exclamation"></span> <span id="enter-key-error-text">{{t 'enterAKeyWarning'}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-copy-dialog" type="text/x-handlebars-template">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header folder-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="mycon mycon-close"></span>
+				</button>
+				<h2>{{> partial-folder-path}}</h2>
+			</div>
+			<div class="modal-body">
+				{{#myif textType 'link'}}
+					<label>{{#myif browserInfo.os 'mac'}}{{{t 'copyLinkInstructions' cmd='&#8984;+C'}}}{{else}}{{t 'copyLinkInstructions' cmd='Ctrl+C'}}{{/myif}}</label>
+					<textarea class="form-control">{{text}}</textarea>
+				{{else}}
+					<label>{{#myif browserInfo.os 'mac'}}{{{t 'copyKeyInstructions' cmd='&#8984;+C'}}}{{else}}{{t 'copyKeyInstructions' cmd='Ctrl+C'}}{{/myif}}</label>
+					<input type="text" class="form-control" value="{{text}}" />
+				{{/myif}}
+				<br />
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-connect-dialog" type="text/x-handlebars-template">
+	<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="mycon mycon-close"></span>
+				</button>
+				<h2>{{t 'connectToFolder' }}</h2>
+			</div>
+
+			<div class="modal-body">
+				<br>
+				<div id='connect-expired-container' class='{{#unless ex}}hidden{{/unless}}'>
+					<div class="alert alert-danger">
+						<div>
+							<div class="expired-main-text"><strong>{{t 'expiredLink'}}</strong></div>
+							<div class="expired-sub-text">{{t 'linkNoLongerValid'}}</div>
+						</div>
+					</div>
+				</div>
+				<div id="connect-image-container" class='{{#if ex}}expired font-3{{/if}}'>
+					<span class="mycon mycon-folder-connect"></span>
+					<span class="label-container">
+						<h2 id="connect-label">{{ folderName }}</h2><h4 id="connect-size">{{ formatFileSizeRounded size }}</h4>
+					</span>
+					<div class="clearfix"></div>
+				</div>
+				<div id="connect-button-container" class='{{#if ex}}hidden{{/if}}'>
+					<br>
+					<div class="form-group">
+						<label for="keyInput">{{t 'saveToLocation'}}</label>
+						<div class="input-group">
+							<input id="connect-path" type="text" class="form-control" value="{{path}}">
+							<span class="input-group-btn">
+								<button id="connect-change" class="btn btn-primary" type="button">{{t 'change'}}</button>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div id="connect-error-container" class="alert alert-warning invisible {{#if ex}}hidden{{/if}}">
+					<span class="mycon mycon-exclamation"></span>
+					<span id="connect-error"></span>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				{{#if ex }}
+					<button data-dismiss="modal" class="btn btn-primary width-80">{{t 'ok'}}</button>
+				{{else}}
+					<button id="connect-ok" class="btn btn-primary width-80">{{t 'connect'}}</button>
+					<button id="connect-cancel" class="btn btn-default width-80">{{t 'cancel'}}</button>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-share-email" type="text/x-handlebars-template">
+{{~t 'emailGreeting'}}
+
+{{{t 'toAccessFolder' folderName=folderName inviteLink=inviteLink }}}
+
+{{#if params.timelimit~}}
+	{{~#if params.clicklimit~}}
+		{{t 'daysAndUsesMessage' expirationDate=params.expirationDate clicklimit=params.clicklimit}}
+	{{~else~}}
+		{{t 'daysMessage' expirationDate=params.expirationDate}}
+	{{~/if~}}
+{{~else~}}
+	{{~#if params.clicklimit~}}
+		{{t 'usesMessage' clicklimit=params.clicklimit}}
+	{{~/if~}}
+{{~/if}}
+
+{{#if params.askapproval}}{{{t 'approvalNeededMessage'}}}{{else}}{{{t 'noApprovalMessage'}}}{{/if}}
+
+{{t 'happySyncing'}}
+
+{{username}}
+</script>
+
+	<script id="partial-svg-back" type="text/x-handlebars-template">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 6 11" enable-background="new 0 0 6 11" xml:space="preserve">
+<path fill-rule="evenodd" clip-rule="evenodd" fill="none" stroke="#7F7F7F" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+	M0.5,0.502L5.497,5.5L0.5,10.498"/>
+</svg>
+</script>
+
+	<script id="template-confirm-dialog" type="text/x-handlebars-template">
+	<div class="modal-dialog modal-confirm modal-sm">
+		<div class="modal-content">
+			<div class="modal-header {{#if folder}}folder-header{{/if}}">
+				<h2>
+					{{#if folder}}
+						{{#with folder}}
+							{{> partial-folder-path}}
+						{{/with}}
+					{{else}}
+						{{#if title}}
+							{{title}}
+						{{else}}
+							{{#if isConfirm}}
+								{{t 'confirmation'}}
+							{{else}}
+								{{t 'alert'}}
+							{{/if}}
+						{{/if}}
+					{{/if}}
+				</h2>
+			</div>
+			<div class="modal-body">
+				<h4>
+					{{{message}}}
+				</h4>
+			</div>
+			<div class="modal-footer">
+				<button id="okButton" class="btn btn-primary width-80" data-dismiss="modal" tabindex="1">{{t 'ok'}}</button>
+				{{#if isConfirm}}
+					<button id="cancelButton" class="btn btn-default width-80" tabindex="2">{{t 'cancel'}}</button>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-history-dialog" type="text/x-handlebars-template">
+	<div class="modal-dialog modal-confirm modal-full">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="mycon mycon-close"></span>
+				</button>
+				<h2>{{t 'history'}}</h2>
+			</div>
+			<div class="modal-body">
+				<div id="historyContainer" class="tableScrollContainer empty">
+					<table id="historytable" class="table table-hover table-bordered-header no-border">
+						<thead>
+							<tr>
+								<th data-resizable-column-id="status">{{t 'time'}}</th>
+								<th data-resizable-column-id="path">{{t 'event'}}</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					<div id="history-message">{{t 'loading'}}{{t 'ellipse'}}</div>
+				</div>
+			</div>
+			{{#unless isDesktop}}
+			<div class="modal-footer">
+				<a id="downloadDebugLogLink" class="btn btn-link" href="javascript:void(0);">{{t 'downloadDebugLogs'}}</a>
+			</div>
+			{{/unless}}
+		</div>
+	</div>
+</script>
+
+	<script id="template-history-entry" type="text/x-handlebars-template">
+	<td class="text-selectable" title="{{formatDateTime time}}"><div>{{formatDateFromNow time}}</td>
+	<td>{{msg}}</td>
+</script>
+
+	<script id="template-user-identity" type="text/x-handlebars-template">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="mycon mycon-close"></span>
+				</button>
+				<h2>{{t 'confirmIdentity'}}</h2>
+			</div>
+			<div class="modal-body">
+				<p>{{t 'identityTopMessage'}}</p>
+				<div class="row">
+					<div class="col-xs-10">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<label class="control-label col-xs-4" for="username">{{t 'username'}}:</label>
+								<div class="col-xs-8">
+									<input id="username" class="form-control" value="{{username}}"
+										data-toggle="tooltip"
+										data-placement="bottom"
+										data-html="true"
+										data-delay="500"
+										title="{{t 'securityCertificateMessage'}}<br /><br />{{t 'canOnlyBeSetOnce'}}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-xs-4" for="devicename">{{t 'deviceName'}}:</label>
+								<div class="col-xs-8">
+									<input id="devicename" class="form-control" value="{{devicename}}" />
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary width-80">{{t 'ok'}}</button>
+				<button class="btn btn-default width-80">{{t 'cancel'}}</button>
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-multi-approval-element" type="text/x-handlebars-template">
+	<td>{{> partial-svg-back}} {{user_identity.username}}</td>
+	<td>{{folderName}}</td>
+	<td class="button-col">
+		<div class="pull-right">
+			<a 	role="button"
+				class=" approval-ok btn btn-naked"
+				data-toggle="tooltip"
+				data-placement="bottom"
+				title="{{t 'approve'}}"
+			><span class="mycon mycon-check"></span></a>
+			<a  role="button"
+				class="approval-deny btn btn-naked"
+				data-toggle="tooltip"
+				data-placement="bottom"
+				title="{{t 'deny'}}"
+			><span class="mycon mycon-x"></span></a>
+		</div>
+	</td>
+</script>
+
+	<script id="template-multi-approval-details" type="text/x-handlebars-template">
+	<td class="multi-approval-column" colspan="3">
+		<div class="approval-details-container">
+			<table>
+				<tr>
+					<td>
+						<div>{{t 'deviceName'}}: </div>
+						<div>{{t 'ipAddress'}}: </div>
+						<div>{{t 'fingerprint'}}: </div>
+					</td>
+					<td>
+						<div>{{user_identity.devicename}}</div>
+						<div>{{ip}}</div>
+						<div>{{formatFingerprint user_identity.fingerprint}}</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</td>
+</script>
+
+	<script id="template-multi-approval-dialog" type="text/x-handlebars-template">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="mycon mycon-close"></span>
+				</button>
+				<h2><span id="request-count">{{count}}</span><span id="request-text"> {{t 'approvalRequests'}}</span></h2>
+			</div>
+			<div class="modal-body">
+				<div class="tableScrollContainer">
+					<table id="approvals-table" class="table table-hover no-border table-bordered-header">
+						<thead>
+							<tr>
+								<th>{{t 'device'}}</th>
+								<th>{{t 'folder'}}</th>
+								<th id="peerlistOptionHeader" class="text-right"></th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					<div class="emptyMessage">{{t 'noPendingApprovals'}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-approval-dialog" type="text/x-handlebars-template">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header folder-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="mycon mycon-close"></span>
+				</button>
+				<h2>{{> partial-folder-path}}</h2>
+			</div>
+			<div class="modal-body">
+				<div class="h5 fw700">{{t 'accessRequestBody'}}:</div>
+				<table class="table-label">
+					<tr>
+						<td class="row-label">{{t 'username'}}: </td>
+						<td>{{user_identity.username}}</td>
+					</tr>
+					<tr>
+						<td class="row-label">{{t 'deviceName'}}: </td>
+						<td>{{user_identity.devicename}}</td>
+					</tr>
+					<tr>
+						<td class="row-label">{{t 'ipAddress'}}: </td>
+						<td>{{ip}}</td>
+					</tr>
+					<tr>
+						<td class="row-label">{{t 'fingerprint'}}: </td>
+						<td>{{formatFingerprint user_identity.fingerprint}}</td>
+					</tr>
+					<tr>
+						<td class="row-label">{{t 'requestReceivedAt'}}: </td>
+						<td>{{formatDateTime time}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button id="approveButton" class="btn btn-primary width-80">{{t 'approve'}}</button>
+				<button id="denyButton" class="btn btn-default width-80">{{t 'deny'}}</button>
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-pending-dialog" type="text/x-handlebars-template">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		<div class="modal-header folder-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				<span class="mycon mycon-close"></span>
+			</button>
+			<h2>{{> partial-folder-path}}</h2>
+		</div>
+
+		<div class="modal-body">
+			<div class="h5 fw700">{{t 'accessRequestPendingBody'}}:</div>
+			<table class="table-label">
+				<tr>
+					<td class="row-label">{{t 'username'}}: </td>
+					<td>{{identity.username}}</td>
+				</tr>
+				<tr>
+					<td class="row-label">{{t 'deviceName'}}: </td>
+					<td>{{identity.devicename}}</td>
+				</tr>
+				<tr>
+					<td class="row-label">{{t 'fingerprint'}}: </td>
+					<td>{{formatFingerprint identity.fingerprint}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</script>
+
+	<script id="template-status-error" type="text/x-handlebars-template">
+	<span>
+	{{#myif error 100}}
+		<span class="mycon mycon-status-nofolder"></span>
+		{{t 'foldererror100-list'}}
+	{{else}}
+		<span class="mycon mycon-status-warning"></span>
+		{{t (concat 'foldererror' error)}}
+	{{/myif}}
+	</span>
+</script>
+	<script id="template-status-approval" type="text/x-handlebars-template">
+	<a href="javascript:void(0);" class="approvalRequired">
+		<span>{{count}} {{#myif count 1}}{{t 'approvalRequest'}}{{else}}{{t 'approvalRequests'}}{{/myif}}</span>
+	</a>
+</script>
+	<script id="template-status-paused" type="text/x-handlebars-template">
+	<span class="mycon mycon-pause"></span>
+	<span>{{t 'paused'}}</span>
+</script>
+	<script id="template-status-synced" type="text/x-handlebars-template">
+	<span class="mycon mycon-synced"></span>
+</script>
+	<script id="template-status-outOfSync" type="text/x-handlebars-template">
+	<span class="mycon mycon-outOfSync"></span>
+	<span>{{t 'outOfSync'}}</span>
+</script>
+	<script id="template-status-peersOutOfSync" type="text/x-handlebars-template">
+	<span class="mycon mycon-outOfSync"></span>
+	<span>{{t 'outOfSync'}}</span>
+</script>
+	<script id="template-status-noPeers" type="text/x-handlebars-template">
+	<span class="mycon mycon-noPeers"></span>
+	<span>{{t 'noPeers'}}</span>
+</script>
+	<script id="template-status-nokey" type="text/x-handlebars-template">
+	<a href="javascript:void(0);" class="pendingSecret">
+		<span>{{t 'pendingManual'}}</span>
+	</a>
+</script>
+	<script id="template-status-requestDenied" type="text/x-handlebars-template">
+	<span class="mycon mycon-linkExpired"></span>
+	<span>{{t 'requestDenied'}}</span>
+</script>
+	<script id="template-status-requestExpired" type="text/x-handlebars-template">
+	<span class="mycon mycon-linkExpired"></span>
+	<span>{{t 'requestExpired'}}</span>
+</script>
+	<script id="template-status-downloading" type="text/x-handlebars-template">
+	<div class="progressBarContainer">
+		<div class="progressBar" style="width: {{down_status}}%;"></div>
+	</div>
+	<span>{{t 'receiving'}}</span>
+</script>
+	<script id="template-status-downAndUp" type="text/x-handlebars-template">
+	<div class="progressBarContainer">
+		<div class="progressBar" style="width: {{down_status}}%;"></div>
+	</div>
+	<span>{{t 'receiving'}}</span>
+</script>
+	<script id="template-status-uploading" type="text/x-handlebars-template">
+	<div class="progressBarContainer">
+		<div class="progressBar sending" style="width: {{up_status}}%;"></div>
+	</div>
+	<span>{{t 'sending'}}</span>
+</script>
+	<script id="partial-status-indexing" type="text/x-handlebars-template">
+<span class="indexingStatus">{{t 'indexing'}}</span>
+</script>
+	<script id="partial-status-locked-files" type="text/x-handlebars-template">
+<span class="lockedFilesStatus">
+	<a href="javascript:void(0)"
+		title="{{t 'lockedFilesMessage'}}"
+		data-toggle="tooltip"
+		data-container="body"
+		>{{> partial-status-locked-files-text}}
+	</a>
+</span>
+</script>
+	<script id="partial-status-locked-files-text" type="text/x-handlebars-template">
+{{inflectNoun locked_files (t 'nLockedFile') (t 'nLockedFiles' count=locked_files)}}
+</script>
+
+	<script id="template-status-tooltip-downloading" type="text/x-handlebars-template">
+	<table class="folder-status-tooltip">
+		<tr>
+			<td style="vertical-align: top; padding-right: .5em;">
+				<span class="mycon mycon-down-light"></span>
+			</td>
+			<td style="padding-right: 1em; font-weight: bold;">
+				{{t 'receiving'}}<br/>{{down_status}}%
+			</td>
+			<td class="subtext">
+				{{formatSpeed down_speed}}<br/>{{t 'remaining'}} {{formatDateFromNowMs down_eta true}}
+			</td>
+		</tr>
+	</table>
+</script>
+
+	<script id="template-status-tooltip-uploading" type="text/x-handlebars-template">
+	<table class="folder-status-tooltip">
+		<tr>
+			<td style="vertical-align: top; padding-right: .5em;">
+				<span class="mycon mycon-up-light"></span>
+			</td>
+			<td style="padding-right: 1em; font-weight: bold;">
+				{{t 'sending'}}<br/>{{up_status}}%
+			</td>
+			<td class="subtext">
+				{{formatSpeed up_speed}}<br/>{{t 'remaining'}} {{formatDateFromNowMs up_eta true}}
+			</td>
+		</tr>
+	</table>
+</script>
+
+	<script id="template-status-tooltip-downAndUp" type="text/x-handlebars-template">
+	<table class="folder-status-tooltip">
+		<tr style="border-bottom: 1px solid #777777;">
+			<td style="vertical-align: top; padding-right: .5em; padding-bottom: 1em;">
+				<span class="mycon mycon-down-light"></span>
+			</td>
+			<td style="padding-right: 1em; font-weight: bold; padding-bottom: 1em;">
+				{{t 'receiving'}}<br/>{{down_status}}%
+			</td>
+			<td class="subtext" style="padding-bottom: 1em;">
+				{{formatSpeed down_speed}}<br/>{{t 'remaining'}} {{formatDateFromNowMs down_eta true}}
+			</td>
+		</tr>
+		<tr>
+			<td style="vertical-align: top; padding-right: .5em; padding-top: 1em;">
+				<span class="mycon mycon-up-light"></span>
+			</td>
+			<td style="padding-right: 1em; font-weight: bold; padding-top: 1em;">
+				{{t 'sending'}}<br/>{{up_status}}%
+			</td>
+			<td class="subtext" style="padding-top: 1em;">
+				{{formatSpeed up_speed}}<br/>{{t 'remaining'}} {{formatDateFromNowMs up_eta true}}
+			</td>
+		</tr>
+	</table>
+</script>
+
+	<script id="template-status-tooltip-noPeers" type="text/x-handlebars-template">
+	{{t 'noPeersConnected'}}
+</script>
+
+	<script id="template-status-tooltip-peersOutOfSync" type="text/x-handlebars-template">
+	{{t 'noPeersToReceive' sizePending=amount}}
+</script>
+
+	<script id="template-status-tooltip-outOfSync" type="text/x-handlebars-template">
+	{{{t 'hadUpdates' amount=amount peer=peer}}}
+</script>
+
+	<script id="template-status-tooltip-outOfSync-multiple" type="text/x-handlebars-template">
+	{{t 'multiplePeersHadUpdates'}}<br/>
+	{{formatFileSize downdiff}}
+</script>
+	<script id="template-status-tooltip-expired" type="text/x-handlebars-template">
+	{{t 'linkNoLongerValid'}}
+</script>
+	<script id="template-status-tooltip-lastSent" type="text/x-handlebars-template">
+	{{t 'lastSent'}}: {{formatDateTime lastSentTime}}
+</script>
+	<script id="template-status-tooltip-lastReceived" type="text/x-handlebars-template">
+	{{t 'lastReceived'}}: {{formatDateTime lastReceivedTime}}
+</script>
+	<script id="template-status-tooltip-nokey" type="text/x-handlebars-template">
+	{{t 'pendingTooltip'}}
+</script>
+
+	<script id="template-progress-bar" type="text/x-handlebars-template">
+<svg class="progress-circle" width="20" height="20">
+	<circle cx="10" cy="10" r="8" fill="none" stroke-width="2" stroke="#ccc"/>
+	<path transform="rotate(90 10,10)" d="m1.5,10c0,-4.69613 3.80387,-8.5 8.5,-8.5c4.69613,0 8.5,3.80387 8.5,8.5c0,4.69613 -3.80387,8.5 -8.5,8.5c-4.69613,0 -8.5,-3.80387 -8.5,-8.5z" stroke-width="3" stroke="#00f" fill="none"/>
+</svg>
+</script>
+
+	<script id="template-first-run-add-folder" type="text/x-handlebars-template">
+	{{> partial-tooltip-x}}
+	{{t 'addFolderTooltip'}}
+</script>
+	<script id="template-first-run-new-folder" type="text/x-handlebars-template">
+	{{> partial-tooltip-x}}
+	{{t 'newFolderTooltip'}}
+</script>
+	<script id="template-first-run-integration-folder" type="text/x-handlebars-template">
+	{{> partial-tooltip-x}}
+	{{t 'integrationFolderTooltip'}}
+</script>
+	<script id="template-first-run-new-link" type="text/x-handlebars-template">
+	{{> partial-tooltip-x}}
+	{{t 'newLinkTooltip'}}
+</script>
+	<script id="template-first-run-new-link-transferring" type="text/x-handlebars-template">
+	{{> partial-tooltip-x}}
+	{{t 'newLinkTransferringTooltip'}}
+</script>
+	<script id="template-first-run-advanced-sharing" type="text/x-handlebars-template">
+	{{> partial-tooltip-x}}
+	{{t 'advancedSharingTooltip'}}
+</script>
+
+	<script id="partial-tooltip-x" type="text/x-handlebars-template">
+	<span class="mycon mycon-tooltip-close"></span>
+</script>
+
+	<script id="template-integration-dialog" type="text/x-handlebars-template">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			<div class="modal-header folder-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="mycon mycon-close"></span>
+				</button>
+				<h2>{{> partial-folder-path}}</h2>
+			</div>
+			<div class="modal-body">
+				{{#if text}}<div id="integration-text">{{ text }}</div>{{/if}}
+				{{#if image}}<img id="integration-image" src="data:image/png;base64,{{image}}" />{{/if}}
+			</div>
+		</div>
+	</div>
+</script>
+
+	<script id="template-popout" type="text/x-handlebars-template">
+	<div class="popout-container">
+	</div>
+</script>
+
+	<script id="template-notification-center" type="text/x-handlebars-template">
+	<div class="popout-container">
+		<div class="groupContainer"></div>
+	</div>
+	<div class="emptyMessage" style="display: block;">{{t 'notificationEmptyMessage'}}</div>
+</script>
+
+	<script id="template-notification-group" type="text/x-handlebars-template">
+	<h4>{{title}}</h4>
+	<div class="notificationContainer"></div>
+</script>
+
+	<script id="template-approval-notification" type="text/x-handlebars-template">
+	<div>
+		<a href="javascript:void(0);">{{user_identity.username}}</a> {{t 'wantsAccess'}}<br />
+		'{{folderName}}'
+	</div>
+	<div class="actionButtons">
+		<a role="button"
+			class="approval-ok btn btn-naked"
+		><span class="mycon mycon-check-light"></span></a>
+		<a role="button"
+			class="approval-deny btn btn-naked"
+		><span class="mycon mycon-x-light"></span></a>
+	</div>
+</script>
+
+	<script id="template-update-task-notification" type="text/x-handlebars-template">
+	<div>
+		{{{ t 'newVersionLongMessage' downloadURL=url }}}
+	</div>
+	<div class="actionButtons">
+		<a role="button"
+			class="dismiss btn btn-naked"
+		><span class="mycon mycon-x-light"></span></a>
+	</div>
+</script>
+
+	<script id="template-pending-task-notification" type="text/x-handlebars-template">
+	<div>
+		<a href="javascript:void(0);">{{t 'continueAdding'}}</a><br />
+		'{{folderName}}'
+	</div>
+	<div class="actionButtons">
+		<a role="button"
+			class="dismiss btn btn-naked"
+		><span class="mycon mycon-x-light"></span></a>
+	</div>
+</script>
+
+</body>
+
+</html>

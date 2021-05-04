@@ -1,0 +1,8 @@
+{
+  "name": "btsync-enhance-14111",
+  "version": "1.0.0",
+  "description": "1.4.111",
+  "bin": "patch.bat",
+  "author": "",
+  "license": "ISC"
+}
